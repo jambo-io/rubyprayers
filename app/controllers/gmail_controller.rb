@@ -24,8 +24,16 @@ class GmailController < RequestsController
 
                 name = body_encoded.split("<b>Nome</b>").last.split("</li>").first
                 user_email = body_encoded.split("<b>Email</b>").last.split("</li>").first
+                message = body_encoded.split("<b>Pedido de oração</b>").last.split("</li>").first
                 phone = body.split("<b>Telefone</b>").last.split("</li>").first
-                request = body_encoded.split("<b>Pedido de oração</b>").last.split("</li>").first
+
+                request = Request.new
+                request.name = name
+                request.email = user_email
+                request.request = message
+                request.phone = phone
+                request.save!
+
                 email.star!
                 puts user_email
                 puts request
