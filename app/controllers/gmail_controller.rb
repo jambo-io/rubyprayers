@@ -9,7 +9,29 @@ class GmailController < RequestsController
 
     def get_requests
         connect_to_gmail do |connect|
-            requests = connect.mailbox('rubyprayers').emails(:unread)
+
+            connect.mailbox('rubyprayers').emails(:unstarred, :after => Date.parse("2019-02-28"), :from =>  "no-reply@parastorage.com").take(1).each do |email|
+
+                # => Header
+                head = email.header.to_s
+                head_encoded = head.force_encoding('utf-8')
+                datetime = head_encoded.split("Date:").last.split("From:").first
+
+                #no_tags = Sanitize.clean(email.html_part.body.decoded)
+                # => Body
+                body = email.html_part.body.decoded
+                body_encoded = body.force_encoding('utf-8')
+
+                name = body_encoded.split("<b>Nome</b>").last.split("</li>").first
+                user_email = body_encoded.split("<b>Email</b>").last.split("</li>").first
+                phone = body.split("<b>Telefone</b>").last.split("</li>").first
+                request = body_encoded.split("<b>Pedido de oração</b>").last.split("</li>").first
+                email.star!
+                puts user_email
+                puts request
+                puts datetime
+
+            end 
         end
     end
 
@@ -17,21 +39,7 @@ class GmailController < RequestsController
         require 'sanitize'
         messages = self.get_requests
         
-        messages.take(1).each do |email|
-            
-            body = email.html_part.body.decoded
-            body_encoded = body.force_encoding('utf-8')
-            #no_tags = Sanitize.clean(email.html_part.body.decoded)
-            name = body_encoded.split("<b>Nome</b>").last.split("</li>").first
-            email = body_encoded.split("<b>Email</b>").last.split("</li>").first
-            phone = body.split("<b>Telefone</b>").last.split("</li>").first
-            request = body_encoded.split("<b>Pedido de oração</b>").last.split("</li>").first
-
-            puts name
-            puts email
-            puts phone
-            puts request
-        end
+        
     end
 
     private

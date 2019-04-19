@@ -43,7 +43,7 @@ end
 
 gem 'devise', '~> 4.6', '>= 4.6.2'
 gem 'google-api-client', '~> 0.11.1'
-gem 'ruby-gmail', '~> 0.3.1'
+gem 'gmail', git: 'git://github.com/gmailgem/gmail.git', branch: 'master'
 gem 'sanitize', '~> 4.0', '>= 4.0.1'
 
 group :development do
