@@ -1,10 +1,49 @@
 class RequestsController < ApplicationController
   before_action :set_request, only: [:show, :edit, :update, :destroy]
+  
 
   # GET /requests
   # GET /requests.json
+
+  def authorize
+    client_secrets = Google::APIClient::ClientSecrets.load('public/app_credentials.json')
+    auth_client = client_secrets.to_authorization
+    auth_client.update!(
+      :scope => 'https://www.googleapis.com/auth/gmail.readonly',
+      :redirect_uri => 'http://localhost/authorize',
+      :additional_parameters => {
+        "access_type" => "offline",         # offline access
+        "include_granted_scopes" => "true"  # incremental auth
+      }
+    )
+    auth_uri = auth_client.authorization_uri.to_s
+    redirect_to(auth_uri)
+  end
+
   def index
     @requests = Request.all
+    require 'google/apis/gmail_v1'
+    require 'google/api_client/client_secrets'
+
+    
+
+    gmail = Google::Apis::GmailV1::GmailService.new
+    gmail.key = Rails.application.credentials.gmail[:secret_access_key]
+ 
+    require 'gmail'
+
+  
+    count = 0
+    Gmail.new(Rails.application.credentials.gmail[:imap_user], Rails.application.credentials.gmail[:imap_password]) do |gmail|
+      count = gmail.inbox.count
+      gmail.inbox.count(:unread)
+      gmail.inbox.count(:read)
+
+    end
+
+    
+
+    @print = count
   end
 
   # GET /requests/1

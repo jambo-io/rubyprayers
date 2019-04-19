@@ -42,6 +42,8 @@ group :development, :test do
 end
 
 gem 'devise', '~> 4.6', '>= 4.6.2'
+gem 'google-api-client', '~> 0.11.1'
+gem 'ruby-gmail', '~> 0.3.1'
 
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
