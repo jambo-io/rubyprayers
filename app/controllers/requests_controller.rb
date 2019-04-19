@@ -1,6 +1,5 @@
 class RequestsController < ApplicationController
   before_action :set_request, only: [:show, :edit, :update, :destroy]
-  
 
   # GET /requests
   # GET /requests.json
@@ -25,25 +24,15 @@ class RequestsController < ApplicationController
     require 'google/apis/gmail_v1'
     require 'google/api_client/client_secrets'
 
-    
+    imap = GmailController.new
+    count = imap.count_emails
+    @print = imap.save_to_db
 
     gmail = Google::Apis::GmailV1::GmailService.new
     gmail.key = Rails.application.credentials.gmail[:secret_access_key]
- 
-    require 'gmail'
-
-  
-    count = 0
-    Gmail.new(Rails.application.credentials.gmail[:imap_user], Rails.application.credentials.gmail[:imap_password]) do |gmail|
-      count = gmail.inbox.count
-      gmail.inbox.count(:unread)
-      gmail.inbox.count(:read)
-
-    end
 
     
-
-    @print = count
+ 
   end
 
   # GET /requests/1
@@ -110,4 +99,5 @@ class RequestsController < ApplicationController
     def request_params
       params.require(:request).permit(:name, :email, :request)
     end
+
 end
