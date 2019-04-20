@@ -32,12 +32,13 @@ class GmailController < RequestsController
                 request.email = user_email
                 request.request = message
                 request.phone = phone
+                request.received_at = DateTime.parse(datetime)
                 request.save!
 
                 email.star!
                 puts user_email
                 puts request
-                puts datetime
+                puts DateTime.parse(datetime)
 
             end 
         end
