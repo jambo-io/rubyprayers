@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :prayers
   resources :categories
   resources :requests
   devise_for :users

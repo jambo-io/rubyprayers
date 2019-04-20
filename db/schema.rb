@@ -10,12 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_20_025403) do
+ActiveRecord::Schema.define(version: 2019_04_20_043740) do
 
   create_table "categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "category_prayers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "prayer_id"
+    t.bigint "category_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_category_prayers_on_category_id"
+    t.index ["prayer_id"], name: "index_category_prayers_on_prayer_id"
   end
 
   create_table "category_requests", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -25,6 +34,13 @@ ActiveRecord::Schema.define(version: 2019_04_20_025403) do
     t.datetime "updated_at", null: false
     t.index ["category_id"], name: "index_category_requests_on_category_id"
     t.index ["request_id"], name: "index_category_requests_on_request_id"
+  end
+
+  create_table "prayers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.text "prayer"
+    t.string "author"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "requests", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -49,6 +65,8 @@ ActiveRecord::Schema.define(version: 2019_04_20_025403) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "category_prayers", "categories"
+  add_foreign_key "category_prayers", "prayers"
   add_foreign_key "category_requests", "categories"
   add_foreign_key "category_requests", "requests"
 end

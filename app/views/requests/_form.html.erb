@@ -26,6 +26,10 @@
     <%= form.text_area :request %>
   </div>
 
+  <%= form_for :categories do |cat| %>
+    <%= cat.collection_check_boxes :category_ids, Category.all, :id, :name %>
+  <% end %>
+
   <div class="actions">
     <%= form.submit %>
   </div>

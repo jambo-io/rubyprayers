@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Prayer:</strong>
+  <%= @prayer.prayer %>
+</p>
+
+<p>
+  <strong>Author:</strong>
+  <%= @prayer.author %>
+</p>
+
+<%= link_to 'Edit', edit_prayer_path(@prayer) %> |
+<%= link_to 'Back', prayers_path %>
