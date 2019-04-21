@@ -21,18 +21,7 @@ class RequestsController < ApplicationController
 
   def index
     @requests = Request.all
-    require 'google/apis/gmail_v1'
-    require 'google/api_client/client_secrets'
-
-    imap = GmailController.new
-    count = imap.count_emails
-    @print = imap.save_to_db
-
-    gmail = Google::Apis::GmailV1::GmailService.new
-    gmail.key = Rails.application.credentials.gmail[:secret_access_key]
-
-    
- 
+    GmailJob.perform_later
   end
 
   # GET /requests/1

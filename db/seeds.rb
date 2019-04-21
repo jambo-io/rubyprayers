@@ -143,3 +143,99 @@ prayers_list_ajuda.each do |prayer, author|
     category.save!
   end
 end
+
+prayers_list_amanhecer = [
+  ["<p>Despertei abrigado por Ti, &oacute; meu Deus, e quem busca esse abrigo deve permanecer no Santu&aacute;rio da Tua prote&ccedil;&atilde;o e na Fortaleza do Teu amparo.</p>
+    <p>Ilumina o &iacute;ntimo do meu ser, &oacute; meu Senhor, com os esplendores do Alvorecer da Tua Revela&ccedil;&atilde;o, assim como iluminaste meu ser exterior com a luz matinal da Tua gra&ccedil;a.</p>",
+    "Bahá'u'lláh "]
+]
+
+prayers_list_amanhecer.each do |prayer, author|
+  if(Prayer.where(:prayer => prayer).blank?)
+    prayer = Prayer.create( prayer: prayer, author: author )
+    category = prayer.category_prayers.new
+    category.category_id = Category.where(name: "amanhecer").first.id
+    category.save!
+  end
+end
+
+  
+prayers_list_casamento = [
+  ["<p>Ele &eacute; Deus!</p>
+  <p>&Oacute; Senhor incompar&aacute;vel! Em Tua sabedoria onipotente, ordenaste matrim&ocirc;nio aos povos, a fim de que as gera&ccedil;&otilde;es de homens se sucedessem umas &agrave;s outras, neste mundo de conting&ecirc;ncias e que sempre, enquanto o mundo existir, se ocupassem em servi&ccedil;o e devo&ccedil;&atilde;o no Limiar de Tua unicidade - em homenagem, adora&ccedil;&atilde;o e louvor. &quot;N&atilde;o criei esp&iacute;ritos e homens a n&atilde;o ser para que Me adorassem.&quot;</p>
+  <p>Une, pois, no c&eacute;u da Tua miseric&oacute;rdia, estas duas aves do ninho do Teu amor, e torna-as o meio de atrair gra&ccedil;a perp&eacute;tua; para que, da uni&atilde;o destes dois mares de amor, possa surgir uma onda de ternura que lance na praia da vida as p&eacute;rolas de uma prog&ecirc;nie pura e excelente.&quot;Ele soltou os dois mares para que se encontrassem um com outro. Entre eles h&aacute; uma barreira que n&atilde;o podem transpor. Qual das d&aacute;divas de vosso Senhor, pois, negareis? Ele faz manifestarem-se, de cada um, p&eacute;rolas maiores e menores.&quot;</p>
+  <p>&Oacute; Tu, Senhor bondoso! Faze surgirem p&eacute;rolas e coral deste casamento. Em verdade, Tu &eacute;s o Onipotente, o Supremo, o Perd&atilde;o Eterno.</p>",
+    "'Abdu'l-Bahá"]
+]
+
+prayers_list_casamento.each do |prayer, author|
+  if(Prayer.where(:prayer => prayer).blank?)
+    prayer = Prayer.create( prayer: prayer, author: author )
+    category = prayer.category_prayers.new
+    category.category_id = Category.where(name: "casamento").first.id
+    category.save!
+  end
+end
+
+prayers_list_cura = [
+  ["<p>&#8203;</p>
+  <p>&Oacute; Tu, Senhor clemente! &Eacute;s o amparo de todos estes servos Teus. Conheces os segredos e mist&eacute;rios de todas as coisas. Estamos necessitados, e Tu &eacute;s o Poderoso, o Onipotente. N&oacute;s todos somos pecadores, e Tu &eacute;s Quem absolve os pecados, o Misericordioso, o Clemente. &Oacute; Senhor! N&atilde;o olhes nossas faltas. Trata-nos de acordo com Tua gra&ccedil;a e Tua generosidade. Nossas faltas s&atilde;o numerosas, mas o oceano do Teu perd&atilde;o &eacute; ilimitado. Nossa fraqueza &eacute; grave, mas as evid&ecirc;ncias de Tua ajuda e assist&ecirc;ncia s&atilde;o claras.</p>
+  <p>Confirma-nos, pois, e fortalece-nos. Ajuda-nos naquilo que nos torne aceit&aacute;veis em Teu sagrado Limiar. Ilumina nossos cora&ccedil;&otilde;es, d&aacute; discernimento aos nossos olhos e torna atentos os nossos ouvidos. Ressuscita os mortos e cura os enfermos. Ao pobre, concede riquezas, ao que teme, confian&ccedil;a e paz. Aceita-nos em Teu reino. Ilumina-nos com a luz de guia. Tu &eacute;s o Poderoso e o Onipotente! &Eacute;s o Generoso! &Eacute;s o Clemente! &Eacute;s o Ben&eacute;volo!</p>",
+  "'Abdu'l-Bahá"]
+]
+
+prayers_list_cura.each do |prayer, author|
+  if(Prayer.where(:prayer => prayer).blank?)
+    prayer = Prayer.create( prayer: prayer, author: author )
+    category = prayer.category_prayers.new
+    category.category_id = Category.where(name: "cura").first.id
+    category.save!
+  end
+end
+
+prayers_list_desprendimento = [
+  ["<p>Glorificado &eacute;s Tu, &oacute; meu Deus! Agrade&ccedil;o-Te por me haveres feito conhecer Aquele que &eacute; o Alvorecer de Tua merc&ecirc;, a Aurora de Tua gra&ccedil;a e o Santu&aacute;rio de Tua Causa. Imploro-Te, por Teu Nome, atrav&eacute;s do qual se tornaram n&iacute;veas as faces dos que est&atilde;o pr&oacute;ximos de Ti, e os cora&ccedil;&otilde;es de Teus devotos al&ccedil;aram v&ocirc;o em Tua dire&ccedil;&atilde;o &ndash; possa eu, em todos os tempos e sob todas as condi&ccedil;&otilde;es, segurar a Corda que a Ti me prende, livrar-me de todo apego que n&atilde;o seja a Ti, manter os olhos dirigidos ao horizonte da Tua Revela&ccedil;&atilde;o e realizar o que me prescreveste em Tuas Ep&iacute;stolas. &Oacute; meu Senhor! Adorna tanto o &iacute;ntimo de minh&rsquo;alma como meu ser exterior com as vestes dos Teus favores e da Tua benevol&ecirc;ncia. Protege-me, ent&atilde;o, de tudo o que abominas e, por Tua gra&ccedil;a, ajuda-me e a meus parentes a sermos todos obedientes a Ti e a evitarmos o que possa despertar dentro de n&oacute;s qualquer desejo mau ou corrupto.</p>
+  <p>Tu, verdadeiramente, &eacute;s o Senhor de toda a humanidade, o Possuidor deste mundo e do vindouro. Nenhum outro Deus h&aacute;, sen&atilde;o Tu, o Onisciente, a Absoluta Sabedoria.</p>",
+  "Bahá'u'lláh"]
+]
+
+prayers_list_desprendimento.each do |prayer, author|
+  if(Prayer.where(:prayer => prayer).blank?)
+    prayer = Prayer.create( prayer: prayer, author: author )
+    category = prayer.category_prayers.new
+    category.category_id = Category.where(name: "desprendimento").first.id
+    category.save!
+  end
+end
+
+prayers_list_firmeza_e_constancia = [
+  ["<p>Glorificado &eacute;s Tu, &oacute; Senhor meu Deus! Suplico-Te, por Aquele que &eacute; Teu Nome Supremo, que foi severamente afligido por aquelas criaturas Tuas que repudiaram Tua verdade - Aquele que foi assediado por tristezas que l&iacute;ngua alguma pode descrever - permite que eu Te recorde e celebre Teu louvor, nesses dias em que todos se afastaram de Tua beleza, duvidaram de Ti e, com desd&eacute;m, voltaram as costas &Agrave;quele que &eacute; o Revelador de Tua Causa. N&atilde;o existe quem Te ajude, &oacute; meu Senhor, a n&atilde;o ser Tu mesmo, nem poder algum que venha em Teu socorro, salvo o Teu pr&oacute;prio.</p>
+  <p>Imploro-Te que me fa&ccedil;as aderir firmemente &agrave; Tua lembran&ccedil;a e ao Teu amor. Isto se encontra, realmente, dentro de meu alcance, e &eacute;s Tu Quem conhece tudo o que est&aacute; em mim. Em verdade, &eacute;s O de tudo informado. N&atilde;o me prives, &oacute; meu Senhor, dos esplendores da luz do Teu semblante, cujo brilho iluminou o mundo inteiro. Nenhum outro Deus h&aacute;, sen&atilde;o Tu, o Mais Poderoso, a Suprema Gl&oacute;ria, O que sempre perdoa.</p>",
+  "Bahá'u'lláh"]
+]
+
+prayers_list_firmeza_e_constancia.each do |prayer, author|
+  if(Prayer.where(:prayer => prayer).blank?)
+    prayer = Prayer.create( prayer: prayer, author: author )
+    category = prayer.category_prayers.new
+    category.category_id = Category.where(name: "firmeza e constância").first.id
+    category.save!
+  end
+end
+
+prayers_list_protecao = [
+  ["<p>&Oacute; Deus, nosso Senhor! Atrav&eacute;s de Tua gra&ccedil;a, protege-nos de qualquer coisa que Te seja repugnante e concede-nos o que de Ti for digno. Dota-nos de maior quinh&atilde;o de Tua gra&ccedil;a e aben&ccedil;oa-nos. Perdoa-nos as coisas que temos feito e purifica-nos dos pecados e, com Tua ben&eacute;vola clem&ecirc;ncia, s&ecirc; Tu indulgente para n&oacute;s. Em verdade, &eacute;s o Excelso, O que subsiste por Si pr&oacute;prio.</p>
+  <p>Tua terna provid&ecirc;ncia tem abrangido todas as coisas criadas, nos c&eacute;us e na terra, e Tua clem&ecirc;ncia tem superado toda a cria&ccedil;&atilde;o. A Ti pertence a soberania; em Tua m&atilde;o se encontram os Reinos da Cria&ccedil;&atilde;o e da Revela&ccedil;&atilde;o; em Tua m&atilde;o direita, seguras Tu todas as coisas criadas e em Teu poder est&atilde;o as medidas determinadas do perd&atilde;o. Tu perdoas a quem quer que desejes entre Teus servos. Em verdade &eacute;s Tu a Eterna Clem&ecirc;ncia, O de todo amor. Nada, em absoluto, escapa a Teu conhecimento e nada h&aacute; que de Ti esteja oculto.</p>
+  <p>&Oacute; Deus, nosso Senhor! Protege-nos atrav&eacute;s da pot&ecirc;ncia de Tua grandeza, e possibilita-nos entrar em Teu admir&aacute;vel oceano que surge, e concede-nos o que de Ti for digno.</p>
+  <p>Tu &eacute;s o Governante Soberano, o Grande Realizador, o Excelso, O de todo amor.</p>",
+  "O Báb"]
+]
+
+prayers_list_protecao.each do |prayer, author|
+  if(Prayer.where(:prayer => prayer).blank?)
+    prayer = Prayer.create( prayer: prayer, author: author )
+    category = prayer.category_prayers.new
+    category.category_id = Category.where(name: "proteção").first.id
+    category.save!
+  end
+end
