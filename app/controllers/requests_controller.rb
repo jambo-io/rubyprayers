@@ -22,6 +22,8 @@ class RequestsController < ApplicationController
   def index
     @requests = Request.all
     GmailJob.perform_later
+
+    ReplyRequestMailer.reply_request.deliver_now
   end
 
   # GET /requests/1
