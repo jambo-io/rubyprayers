@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_20_043740) do
+ActiveRecord::Schema.define(version: 2019_04_21_173556) do
 
   create_table "categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
@@ -43,6 +43,15 @@ ActiveRecord::Schema.define(version: 2019_04_20_043740) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "request_statuses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.boolean "sent", default: false
+    t.datetime "sent_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "request_id"
+    t.index ["request_id"], name: "index_request_statuses_on_request_id"
+  end
+
   create_table "requests", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
     t.string "email"
@@ -69,4 +78,5 @@ ActiveRecord::Schema.define(version: 2019_04_20_043740) do
   add_foreign_key "category_prayers", "prayers"
   add_foreign_key "category_requests", "categories"
   add_foreign_key "category_requests", "requests"
+  add_foreign_key "request_statuses", "requests"
 end
