@@ -1,6 +1,8 @@
 class ReplyRequestMailer < ApplicationMailer
-    def reply_request
-        @user = "Teste"
-        mail(to: "guilhermewnunes@gmail.com", subject: "This is a ruby Email test")
+    def reply_request(request)
+        @request = request
+        @category = request.categories.first
+        @prayer = @category.prayers.first.prayer
+        mail(to: @request.email, subject: "Re: Comunidade Bahá'í do Brasil")
     end
 end

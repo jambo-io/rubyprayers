@@ -20,10 +20,9 @@ class RequestsController < ApplicationController
   end
 
   def index
-    @requests = Request.all
+    #@requests = Request.where()
+    @requests = Request.joins(:request_status).merge(RequestStatus.unsent)
     GmailJob.perform_later
-
-    ReplyRequestMailer.reply_request.deliver_now
   end
 
   # GET /requests/1
@@ -69,6 +68,17 @@ class RequestsController < ApplicationController
         format.json { render json: @request.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def reply_request
+    puts "responder"
+    #
+
+    request = Request.find(params[:request_id])
+    ReplyRequestMailer.reply_request(request).deliver_now
+    status = request.request_status
+    status.sent = true
+  
   end
 
   # DELETE /requests/1
