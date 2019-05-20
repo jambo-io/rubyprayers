@@ -78,6 +78,7 @@ class RequestsController < ApplicationController
     ReplyRequestMailer.reply_request(request).deliver_now
     status = request.request_status
     status.sent = true
+    status.save!
   
   end
 
