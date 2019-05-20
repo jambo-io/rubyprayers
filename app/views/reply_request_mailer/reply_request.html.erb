@@ -12,8 +12,11 @@
 
     <br><br><br>
     
-<h3>Ora&ccedil;&atilde;o de <%= @category.name %></h3>
-<%= @prayer.html_safe %>
+<% @categories.each do |category| %>
+    <h3>Ora&ccedil;&atilde;o de <%= category.name %></h3>
+    <%= category.prayers.first.prayer.html_safe %>
+<% end %>
+
 
 <br><br><br>
 <%= @request.received_at.strftime("Em %d-%m-%Y, %H:%M") %>
