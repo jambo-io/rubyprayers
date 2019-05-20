@@ -74,11 +74,22 @@ class RequestsController < ApplicationController
     puts "responder"
     #
 
-    request = Request.find(params[:request_id])
-    ReplyRequestMailer.reply_request(request).deliver_now
-    status = request.request_status
-    status.sent = true
-    status.save!
+
+    @request = Request.find(params[:request_id])
+
+    #Check if there is a category
+    
+    if @request.categories.blank?
+      respond_to do |format|
+        format.js
+        return false
+      end
+    else
+      ReplyRequestMailer.reply_request(@request).deliver_now
+      status = @request.request_status
+      status.sent = true
+      status.save!
+    end
   
   end
 
