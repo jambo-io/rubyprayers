@@ -22,6 +22,7 @@ class RequestsController < ApplicationController
   def index
     #@requests = Request.where()
     @requests = Request.joins(:request_status).merge(RequestStatus.unsent)
+    @categories = Category.all
     GmailJob.perform_later
   end
 
@@ -59,13 +60,10 @@ class RequestsController < ApplicationController
   # PATCH/PUT /requests/1
   # PATCH/PUT /requests/1.json
   def update
-    respond_to do |format|
-      if @request.update(request_params)
-        format.html { redirect_to @request, notice: 'Request was successfully updated.' }
-        format.json { render :show, status: :ok, location: @request }
-      else
-        format.html { render :edit }
-        format.json { render json: @request.errors, status: :unprocessable_entity }
+    if @request.update(request_params)
+      respond_to do |format|
+        format.js
+        return true
       end
     end
   end
@@ -73,7 +71,6 @@ class RequestsController < ApplicationController
   def reply_request
     puts "responder"
     #
-
 
     @request = Request.find(params[:request_id])
 
@@ -86,9 +83,6 @@ class RequestsController < ApplicationController
       end
     else
       ReplyRequestMailer.reply_request(@request).deliver_now
-      status = @request.request_status
-      status.sent = true
-      status.save!
     end
   
   end

@@ -45,6 +45,8 @@ gem 'devise', '~> 4.6', '>= 4.6.2'
 gem 'google-api-client', '~> 0.11.1'
 gem 'gmail', git: 'git://github.com/gmailgem/gmail.git', branch: 'master'
 gem 'sanitize', '~> 4.0', '>= 4.0.1'
+gem 'jquery-rails', '~> 4.3', '>= 4.3.3'
+gem 'rails-ujs', '~> 0.1.0'
 
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
