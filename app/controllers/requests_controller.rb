@@ -60,11 +60,14 @@ class RequestsController < ApplicationController
   # PATCH/PUT /requests/1
   # PATCH/PUT /requests/1.json
   def update
+    puts "WELCOME"
     if @request.update(request_params)
       respond_to do |format|
         format.js
         return true
       end
+    else
+      puts "DID NOT UPDATE"
     end
   end
 

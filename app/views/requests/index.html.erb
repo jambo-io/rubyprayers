@@ -4,13 +4,49 @@
   <h1>Pedidos</h1>
 </span>
 
+  <style>
+    .hidden {position:absolute;visibility:hidden;opacity:0;}
+
+    input[type=checkbox]:hover  {
+      background-color: red;
+    }
+
+  
+    input[type=checkbox] + label {
+      cursor: pointer;
+      color: #4e94a2;
+      border: 2px solid #4e94a2;
+      border-radius: 3px;
+      padding: .2em;
+      padding-left: .6em;
+      padding-right: .6em;
+    } 
+
+    input[type=checkbox]:hover + label {
+      border-color: #0c4c6f;
+      color:#305a63;
+    } 
+
+    input[type=checkbox]:checked + label {
+      color: white;
+      background-color:  #4e94a2;
+    }
+
+
+  </style>
+
   <script>
     function set_category (id) {
       var elem = document.getElementById("form" + id) // or $('#myform')[0] with jQuery
+      console.log(id);
       $("#form" + id).submit();
+      
     }
+
+
   </script>
   <div class="container">
+   
     <% @requests.each do |request| %>
       <div class="card" style="width: 100%;">
         <div class="card-body">
@@ -20,15 +56,15 @@
           
          
           <div class="p-4">
-            <% @id = request.id %>
-            <%= form_with(model: request, local: true, remote: true, :id => "form#{@id}", :class => "form-class") do |form| %>
-            <%= form.collection_check_boxes :category_ids, Category.all, :id, :name do |b| %>
-              
-              <%= b.check_box ({ disabled: false,
-                :onclick =>  "set_category(`#{@id}`);"  }) %>
-              <%= b.label %>
-              <% end %>
+            <% id = request.id %>
+            <%= form_with(model: request, local:true, remote: true, :id => "form#{id}") do |f| %>
 
+              <%= f.collection_check_boxes :category_ids, Category.all, :id, :name do |b| %>
+
+              <%= b.check_box id: "#{request.id}-#{b.value}", onchange: "set_category(#{id})" %>
+              <%= b.label(:"data-value" => b.value, :for => "#{request.id}-#{b.value}" ) { b.text } %>
+
+              <% end %>
             <% end %>
             <% @categories.each do |category| %>
             
