@@ -21,7 +21,7 @@ class RequestsController < ApplicationController
 
   def index
     #@requests = Request.where()
-    @requests = Request.joins(:request_status).merge(RequestStatus.unsent)
+    @requests = Request.joins(:request_status).merge(RequestStatus.unsent).limit(20)
     @categories = Category.all
     GmailJob.perform_later
   end

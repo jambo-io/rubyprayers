@@ -44,8 +44,9 @@
       var elem = document.getElementById("form" + id) // or $('#myform')[0] with jQuery
       console.log(id);
       $("#form" + id).submit();
-      
     }
+    
+    // Confirm sending the Message and show loading
     $(document).ready(function(){
       $(".text_loading").hide();
       $(".button_send").click(function(event){
@@ -56,7 +57,7 @@
           $("#button_send" + request).hide();
           $("#text_loading" + request).show();
         } else {
-          alert('Why did you press cancel? You should have confirmed');
+          
         }
       });
     });

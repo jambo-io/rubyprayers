@@ -15,6 +15,7 @@ class ReplyRequestMailer < ApplicationMailer
     def set_sent_true
         status = @request.request_status
         status.sent = true
+        status.sent_at = Time.now
         status.save!
     end
     def return_true
