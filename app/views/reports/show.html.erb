@@ -1,0 +1,41 @@
+<p id="notice"><%= notice %></p>
+
+<h1 class="text-center">
+  Relatório <%= @report.name %>
+</h1>
+
+<p class="text-center">
+  <%= @count %> <%= "Pedido".pluralize(@count) %>, de <%=  @report.start_at %> até  <%=  @report.end_at %>
+</p>
+<% @categories.each do |category| %>
+  <% requests = category.requests.joins(:request_status).merge(RequestStatus.where(:sent_at => @report.start_at...@report.end_at).sent) %>
+    <% unless requests.blank? %>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nome</th>
+            <th scope="col">E-mail</th>
+            <th scope="col">Pedido</th>
+            <th scope="col">Resposta</th>
+          </tr>
+        </thead>
+        <h3 class="text-center m-2 p-3"><%= category.name %> </h3>
+        <tbody>
+          <% requests.each.with_index do |request, index| %>
+            <tr>
+              <th scope="row"><%= index + 1 %></th>
+              <td><%= request.name %></td>
+              <td><%= request.email %></td>
+              <td><%= request.received_at %></td>
+              <td><%= request.request_status.sent_at %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+  <% end %>
+<% end %>
+
+
+<%= link_to 'Edit', edit_report_path(@report) %> |
+<%= link_to 'Back', reports_path %>
