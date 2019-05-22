@@ -72,20 +72,24 @@ class RequestsController < ApplicationController
   end
 
   def reply_request
-    puts "responder"
-    #
-
+    @delivered = false
     @request = Request.find(params[:request_id])
-
     #Check if there is a category
-    
     if @request.categories.blank?
       respond_to do |format|
         format.js
         return false
       end
     else
-      ReplyRequestMailer.reply_request(@request).deliver_now
+      if ReplyRequestMailer.reply_request(@request).deliver_later
+        @delivered = true
+        respond_to do |format|
+          format.js
+          return true
+        end
+      else
+        puts "falhou"
+      end
     end
   
   end

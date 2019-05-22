@@ -1,5 +1,6 @@
 class ReplyRequestMailer < ApplicationMailer
     after_action :set_sent_true
+    after_action :return_true
 
     def reply_request(request)
         @request = request
@@ -15,5 +16,8 @@ class ReplyRequestMailer < ApplicationMailer
         status = @request.request_status
         status.sent = true
         status.save!
+    end
+    def return_true
+        return true
     end
 end

@@ -1,4 +1,7 @@
 
+
+$(".text_loading").hide();
+$(".button_send").show();
 <% if @request.categories.blank? %>
     console.log("Não há categorias");
     window.alert("Não há categorias");
@@ -6,4 +9,8 @@
 
 <% if @request.categories.present? %>
 
+<% end %>
+
+<% if @delivered %>
+    $("<%= "#request#{@request.id}" %>").remove();
 <% end %>

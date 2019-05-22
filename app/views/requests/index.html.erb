@@ -11,6 +11,10 @@
       background-color: red;
     }
 
+    input[type=checkbox] {
+      position:absolute;visibility:hidden;opacity:0;
+    }
+
   
     input[type=checkbox] + label {
       cursor: pointer;
@@ -42,13 +46,27 @@
       $("#form" + id).submit();
       
     }
-
+    $(document).ready(function(){
+      $(".text_loading").hide();
+      $(".button_send").click(function(event){
+        event.preventDefault();
+        if (confirm('Tem certeza?')) {
+          $(this).hide();
+          var request = this.getAttribute('request');
+          $("#button_send" + request).hide();
+          $("#text_loading" + request).show();
+        } else {
+          alert('Why did you press cancel? You should have confirmed');
+        }
+      });
+    });
+    
 
   </script>
   <div class="container">
    
     <% @requests.each do |request| %>
-      <div class="card" style="width: 100%;">
+      <div id="<%= "request#{request.id}" %>" class="card" style="width: 100%;">
         <div class="card-body">
           <h4 class="card-title"></h4>
           <p class="card-text text-center"><small class="text-muted text-center"><%= request.received_at %> - <%= request.email %> </small></p>
@@ -74,7 +92,9 @@
             <div class="d-inline p-2"><%= link_to 'Ver', request %></div>
             <div class="d-inline p-2"><%= link_to 'Editar', edit_request_path(request) %></div>
             <div class="d-inline p-2"><%= link_to 'Deletar', request, method: :delete, data: { confirm: 'Are you sure?' } %></div>
-            <div class="d-inline p-2"><%= link_to 'Enviar', request_reply_request_path(request), data: { confirm: 'Tem certeza?' }, remote: true %></div>
+            
+            <div id="button_send#{request.id}" class="button_send" request="<%= request.id %>" class="d-inline p-2"><%= link_to 'Enviar', request_reply_request_path(request), remote: true %></div>
+            <div id="<%="text_loading#{request.id}"%>" class="text_loading">Enviando...</div>
           </div>
         </div>
       </div>
