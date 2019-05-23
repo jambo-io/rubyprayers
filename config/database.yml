@@ -50,6 +50,4 @@ test:
 #
 production:
   <<: *default
-  database: rubyprayers_production
-  username: rubyprayers
-  password: <%= ENV['RUBYPRAYERS_DATABASE_PASSWORD'] %>
+  url: <%= ENV['DATABASE_URL'] %>
