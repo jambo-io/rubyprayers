@@ -41,6 +41,7 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 end
 
+gem 'rails_12factor'
 gem 'devise', '~> 4.6', '>= 4.6.2'
 gem 'google-api-client', '~> 0.11.1'
 gem 'gmail', git: 'git://github.com/gmailgem/gmail.git', branch: 'master'

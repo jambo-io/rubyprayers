@@ -19,7 +19,9 @@
 
 
 <br><br><br>
-<%= @request.received_at.strftime("Em %d-%m-%Y, %H:%M") %>
+<% unless @request.received_at.blank? %>
+    <%= @request.received_at.strftime("Em %d-%m-%Y, %H:%M") %>
+<% end %>
 <br>
 
 <b>Mensagem</b>  <%= @request.request %> <br>
