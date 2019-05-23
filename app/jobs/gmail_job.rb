@@ -4,7 +4,7 @@ class GmailJob < ApplicationJob
   def perform(*args)
     # Do something later
     require 'gmail'
-    gmail = Gmail.new(Rails.application.credentials.gmail[:imap_user], Rails.application.credentials.gmail[:imap_password])
+    gmail = Gmail.new(ENV['imap_user'], ENV['imap_password'])
 
     gmail.mailbox('rubyprayers').emails(:unstarred, :after => Date.parse("2018-08-31"), :from =>  "oracoesonline@bahai.org.br").each do |email|
 
