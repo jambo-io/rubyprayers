@@ -1,7 +1,7 @@
 
 <p style="text-align:right;">Brasília, 22 de abril de 2019</p>
-
-<p>Boa dia <%=@request.name%>,</p>
+<br>
+<p><%= @greet %> <%=@request.name%>,</p>
 <p>&#8195;A Comunidade Bah&aacute;'&iacute; do Brasil tem a profunda alegria de informar que recebeu o seu pedido de ora&ccedil;&otilde;es e que este foi atendido.</p>
 <p>&#8195;Temos a satisfa&ccedil;&atilde;o de compartilhar abaixo a ora&ccedil;&atilde;o especial - extra&iacute;da das Escrituras Sagradas da F&eacute; Bah&aacute;'&iacute;, reveladas por Bah&aacute;'u'll&aacute;h, O B&aacute;b e 'Abdu'l-Bah&aacute; - relacionada com o seu pedido. Esperamos que ela traga ao seu cora&ccedil;&atilde;o serenidade, alegria, confian&ccedil;a, esperan&ccedil;a e paz, e que por meio de seu efeito suas aspira&ccedil;&otilde;es sejam alcan&ccedil;adas, em conformidade com a vontade do Criador.</p>
 <p>&#8195;Sugerimos que voc&ecirc; tamb&eacute;m fa&ccedil;a esta ora&ccedil;&atilde;o que traz as Palavras Sagradas de Deus, pela manh&atilde; e &agrave; noite, podendo convidar outras pessoas para tamb&eacute;m ouvi-la. Ore com absoluta f&eacute;, respeito e rever&ecirc;ncia e fale com Deus tudo o que passa no &iacute;ntimo do seu cora&ccedil;&atilde;o.</p>
@@ -10,11 +10,26 @@
 <p style="text-align:center;">Com amorosas sauda&ccedil;&otilde;es,</p>
 <p style="text-align:center;">Comunidade Bah&aacute;&rsquo;&iacute; do Brasil</p>
 
-    <br><br><br>
+    <br>
     
+<% no_repeat = 0 %>
 <% @categories.each do |category| %>
-    <h3>Ora&ccedil;&atilde;o de <%= category.name %></h3>
-    <%= category.prayers.first.prayer.html_safe %>
+    
+    <% if category.prayers.first.present? %>
+       <br><br>
+       <span style="text-align:center;"><h3 style="padding-top: 10px;">Ora&ccedil;&atilde;o de <%= category.name %></h3></span>
+       <%= category.prayers.first.prayer.html_safe %>
+       <span> - <%= category.prayers.first.author %><span>
+    <% else %>
+       <% if no_repeat == 0 %>
+          <% no_repeat = 1 %>
+          <br><br>
+          <span style="text-align:center;"><h3 style="padding-top: 10px;">Ora&ccedil;&atilde;o de <%= category.name %></h3></span>
+          <%= @default_prayer.html_safe %>
+          <span> - <%= @default_author %><span>
+       <% end %>
+    <% end %>
+
 <% end %>
 
 
