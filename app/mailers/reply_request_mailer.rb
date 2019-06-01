@@ -11,7 +11,7 @@ class ReplyRequestMailer < ApplicationMailer
         @greet = greet
         @default_prayer = default_prayer
         @default_author = default_author
-        mail(to: "guilhermewnunes@gmail.com", subject: "Re: Comunidade Bahá'í do Brasil")   
+        mail(to: @request.email, subject: "Re: Comunidade Bahá'í do Brasil")   
     end
 
     private
