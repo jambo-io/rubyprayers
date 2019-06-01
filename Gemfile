@@ -1,12 +1,12 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.5.1'
+ruby '2.6.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.3'
 # Use mysql as the database for Active Record
-gem 'mysql2', '>= 0.4.4', '< 0.6.0'
+gem 'mysql2', '~> 0.4.10'
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
 # Use SCSS for stylesheets
@@ -42,7 +42,7 @@ group :development, :test do
 end
 
 gem 'rails_12factor'
-gem 'devise', '~> 4.6', '>= 4.6.2'
+gem 'devise'
 gem 'google-api-client', '~> 0.11.1'
 gem 'gmail', git: 'git://github.com/gmailgem/gmail.git', branch: 'master'
 gem 'sanitize', '~> 4.0', '>= 4.0.1'

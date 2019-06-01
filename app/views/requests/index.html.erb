@@ -45,7 +45,7 @@
       console.log(id);
       $("#form" + id).submit();
     }
-    
+
     // Confirm sending the Message and show loading
     $(document).ready(function(){
       $(".text_loading").hide();
@@ -70,7 +70,10 @@
       <div id="<%= "request#{request.id}" %>" class="card" style="width: 100%;">
         <div class="card-body">
           <h4 class="card-title"></h4>
-          <p class="card-text text-center"><small class="text-muted text-center"><%= request.received_at %> - <%= request.email %> </small></p>
+
+          <% if request.received_at.present? %>
+            <p class="card-text text-center"><small class="text-muted text-center"><%= request.received_at %> - <%= request.email %> </small></p>
+          <% end %>
           <p class="card-text h2 pb-4 pt-4"><%= request.request %> - <small><%= request.name %></small></p>
           
          
