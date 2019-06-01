@@ -50,7 +50,7 @@ class GmailJob < ApplicationJob
       puts "case3"
     else
       puts "case4"
-      message = message.split("start: ").laste
+      message = message.split("start: ").last
     end
 
      puts "Message: #{message}"
