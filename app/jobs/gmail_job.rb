@@ -29,13 +29,22 @@ class GmailJob < ApplicationJob
     # Eliminate HMTL tags
     body_encoded = Sanitize.clean(body.force_encoding('utf-8'))
 
-    name = body_encoded.split("Nome:").last.split("Email:").first.strip!
+    if (body_encoded.include? "Detalhes da Mensagem:")
+      body_encoded = body_encoded.split("Detalhes da Mensagem:").last.split("Enviado em:").first.strip!
+    end
+    
+    name = body_encoded.split("Nome").last.split("Email").first.strip!
     puts "Name: #{name}"
-    user_email = body_encoded.split("Email:").last.split("Telefone:").first.strip!
+    user_email = body_encoded.split("Email").last.split("Telefone").first.strip!
     puts "Email: #{user_email}"
-    phone = body.split("Telefone:").last.split("Pedido de oração:").first.strip!
+    phone = body.split("Telefone").last.split("Pedido de oração").first.strip!
     puts "Phone: #{phone}"
-    message = "start: " + body_encoded.split("Pedido de oração:").last.split("Para").first.strip!
+
+    if (body_encoded.include? "Nome do Formulário")
+      message = "start: " + body_encoded.split("Pedido de oração").last.split("Nome do Formulário").first.strip!
+    else
+      message = "start: " + body_encoded.split("Pedido de oração").last.split("Para").first.strip!
+    end
     puts "Message: #{message}"
 
     #Clean Message
@@ -48,8 +57,11 @@ class GmailJob < ApplicationJob
     elsif message.include? "Pra editar as configurações"
       message = message.split("start: ").last.split("Pra editar as configurações").first.strip!
       puts "case3"
-    else
+    elsif message.include? "Nome do Formulário"
+      message = message.split("start: ").last.split("Nome do Formulário").first.strip!
       puts "case4"
+    else
+      puts "case5"
       message = message.split("start: ").last
     end
 
