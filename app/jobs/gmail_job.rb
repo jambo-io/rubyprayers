@@ -28,42 +28,62 @@ class GmailJob < ApplicationJob
 
     # Eliminate HMTL tags
     body_encoded = Sanitize.clean(body.force_encoding('utf-8'))
+    puts "body encoded"
+    
+
+    if !body_encoded.include? "Detalhes da Mensagem:"
+      if !body_encoded.include? "Nome"
+        if !body_encoded.include? "Email"
+          if !body_encoded.include? "Pedido de Oração"
+            email.move_to!("Rubyprayers_exceptions")
+            return false
+          end
+        end
+      end
+    end
 
     if (body_encoded.include? "Detalhes da Mensagem:")
-      body_encoded = body_encoded.split("Detalhes da Mensagem:").last.split("Enviado em:").first.strip!
+      if (body_encoded.include? "Nome do Formulário")
+        puts "part 1"
+        body_encoded = body_encoded.split("Detalhes da Mensagem:").last.split("Nome do Formulário").first.strip!
+      elsif (body_encoded.include? "Não perca potenciais clientes.")
+        puts "part 2"
+        body_encoded = body_encoded.split("Detalhes da Mensagem:").last.split("Não perca potenciais clientes.").first.strip!
+      end
     end
-    
-    name = body_encoded.split("Nome").last.split("Email").first.strip!
+
+    puts "new body encoded"
+    puts body_encoded
+
+    fields = ["Nome", "Email", "Telefone", "Pedido de oração"]
+
+    if(body_encoded.include? "Nome:")
+      fields = ["Nome:", "Email:", "Telefone:", "Pedido de oração:"]
+    end
+
+    name = body_encoded.split(fields[0]).last.split(fields[1]).first.strip!
     puts "Name: #{name}"
-    user_email = body_encoded.split("Email").last.split("Telefone").first.strip!
+
+    user_email = body_encoded.split(fields[1]).last.split(fields[2]).first.strip!
     puts "Email: #{user_email}"
-    phone = body.split("Telefone").last.split("Pedido de oração").first.strip!
+
+    phone = body_encoded.split(fields[2]).last.split(fields[3]).first.strip!
     puts "Phone: #{phone}"
 
-    if (body_encoded.include? "Nome do Formulário")
-      message = "start: " + body_encoded.split("Pedido de oração").last.split("Nome do Formulário").first.strip!
-    else
-      message = "start: " + body_encoded.split("Pedido de oração").last.split("Para").first.strip!
-    end
-    puts "Message: #{message}"
+    message = body_encoded.split(fields[3]).last.to_s
 
-    #Clean Message
-    if message.include? "Não perca potenciais clientes."
-      message = message.split("start: ").last.split("Não perca potenciais clientes.").first.strip!
-      puts "case1"
-    elsif message.include? "Never miss a lead."
-       message = message.split("start: ").last.split("Never miss a lead.").first.strip!
-       puts "case2"
-    elsif message.include? "Pra editar as configurações"
-      message = message.split("start: ").last.split("Pra editar as configurações").first.strip!
-      puts "case3"
-    elsif message.include? "Nome do Formulário"
-      message = message.split("start: ").last.split("Nome do Formulário").first.strip!
-      puts "case4"
-    else
-      puts "case5"
-      message = message.split("start: ").last
+
+    filters = ["Nome do Formulário", "Não perca potenciais clientes.", "Never miss a lead.", "Para editar as configurações de email"]
+
+    filters.each do |filter|
+      puts "filter"
+      puts filter
+      if message.include? filter
+        message = message.split(filter).first.strip!
+      end
     end
+
+    
 
      puts "Message: #{message}"
      request = save_data(name, user_email, phone, message, datetime)
@@ -82,7 +102,7 @@ class GmailJob < ApplicationJob
     #Fowarded Email
     from = "oracoesonline@bahai.org.br"
     gmail.mailbox('rubyprayers').emails(:unstarred, :after => Date.parse("2018-08-31"), :from =>  from).each do |email|
-        if from="oracoesonline@bahai.org.br"
+        if from=="oracoesonline@bahai.org.br"
           sanitize_redirected_email(email)
         end
     end
@@ -90,7 +110,7 @@ class GmailJob < ApplicationJob
     #Redirected from Oracoesonline@bahai.rog.br
     from = "no-reply@parastorage.com"
     gmail.mailbox('rubyprayers').emails(:unstarred, :after => Date.parse("2018-08-31"), :from =>  from).each do |email|
-        if from="no-reply@parastorage.com"
+        if from=="no-reply@parastorage.com"
           sanitize_redirected_email(email)
         end
     end 
