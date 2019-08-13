@@ -5,7 +5,7 @@
 </h1>
 
 <p class="text-center">
-  <%= @count %> <%= "Pedido".pluralize(@count) %>, de <%=  @report.start_at %> até  <%=  @report.end_at %>
+  <%= @count %> <%= "pedido".pluralize(@count) %> de <%=  @report.start_at.strftime("%d/%m/%Y") %> até  <%=  @report.end_at.strftime("%d/%m/%Y") %>
 </p>
 <% @categories.each do |category| %>
   <% requests = category.requests.joins(:request_status).merge(RequestStatus.where(:sent_at => @report.start_at...@report.end_at).sent) %>
@@ -13,7 +13,7 @@
       <table class="table">
         <thead>
           <tr>
-            <th scope="col">#</th>
+            <th scope="col"></th>
             <th scope="col">Nome</th>
             <th scope="col">E-mail</th>
             <th scope="col">Pedido</th>
@@ -27,8 +27,8 @@
               <th scope="row"><%= index + 1 %></th>
               <td><%= request.name %></td>
               <td><%= request.email %></td>
-              <td><%= request.received_at %></td>
-              <td><%= request.request_status.sent_at %></td>
+              <td><%= request.received_at.strftime("%d/%m/%Y %H:%M") %></td>
+              <td><%= request.request_status.sent_at.strftime("%d/%m/%Y %H:%M") %></td>
             </tr>
           <% end %>
         </tbody>
@@ -37,5 +37,5 @@
 <% end %>
 
 
-<%= link_to 'Edit', edit_report_path(@report) %> |
-<%= link_to 'Back', reports_path %>
+<%= link_to 'Editar', edit_report_path(@report), class: "d-print-none" %> |
+<%= link_to 'Voltar', reports_path, class: "d-print-none" %>

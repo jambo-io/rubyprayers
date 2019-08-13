@@ -31,7 +31,7 @@ class GmailJob < ApplicationJob
     puts "body encoded"
     
 
-    if !body_encoded.include? "Detalhes da Mensagem:"
+    if ((!body_encoded.include? "Detalhes da Mensagem:") || (!body_encoded.include? "Message Details:"))
       if !body_encoded.include? "Nome"
         if !body_encoded.include? "Email"
           if !body_encoded.include? "Pedido de Oração"
@@ -42,13 +42,15 @@ class GmailJob < ApplicationJob
       end
     end
 
-    if (body_encoded.include? "Detalhes da Mensagem:")
+    if ((body_encoded.include? "Detalhes da Mensagem:") || (body_encoded.include? "Message Details:"))
       if (body_encoded.include? "Nome do Formulário")
         puts "part 1"
         body_encoded = body_encoded.split("Detalhes da Mensagem:").last.split("Nome do Formulário").first.strip!
       elsif (body_encoded.include? "Não perca potenciais clientes.")
         puts "part 2"
         body_encoded = body_encoded.split("Detalhes da Mensagem:").last.split("Não perca potenciais clientes.").first.strip!
+      elsif (body_encoded.include? "A site visitor just submitted a new Contact Form")
+        body_encoded = body_encoded.split("Message Details:").last.split("To edit your email settings").first.strip!
       end
     end
 
