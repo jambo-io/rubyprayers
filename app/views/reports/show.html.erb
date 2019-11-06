@@ -12,7 +12,7 @@
     <% unless requests.blank? %>
       <table class="table">
         <thead>
-          <tr>
+          <tr class="text-center">
             <th scope="col"></th>
             <th scope="col">Nome</th>
             <th scope="col">E-mail</th>
@@ -20,7 +20,7 @@
             <th scope="col">Resposta</th>
           </tr>
         </thead>
-        <h3 class="text-center m-2 p-3"><%= category.name %> </h3>
+        <h4 class="text-center m-2 p-3"><%= category.name %> </h4>
         <tbody>
           <% requests.each.with_index do |request, index| %>
             <tr>

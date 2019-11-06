@@ -13,3 +13,14 @@
  *= require_tree .
  *= require_self
  */
+
+ .table td, .table th {
+    padding: .2rem !important;
+    vertical-align: middle !important;
+ }
+
+ p, ol, ul, td {
+    font-family: verdana, arial, helvetica, sans-serif;
+    font-size: .7em;
+    line-height: 13px;
+}

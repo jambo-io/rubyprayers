@@ -21,7 +21,7 @@ default: &default
 
 development:
   <<: *default
-  database: rubyprayers_development
+  url: mysql2://b60c699150fc01:c94a1619@us-cdbr-iron-east-02.cleardb.net/heroku_baaf91bf4a35b6e?reconnect=true
   
   
 
