@@ -135,7 +135,7 @@ class GmailJob < ApplicationJob
     # Do something later
     require 'gmail'
     gmail = Gmail.new(ENV['imap_user'], ENV['imap_password'])
-
+  
     #Fowarded Email
     from = "oracoesonline@bahai.org.br"
     gmail.mailbox(ENV['gmail_label']).emails(:unstarred, :after => Date.parse("2018-08-31"), :from =>  from).each do |email|
@@ -148,6 +148,14 @@ class GmailJob < ApplicationJob
     from = "no-reply@parastorage.com"
     gmail.mailbox(ENV['gmail_label']).emails(:unstarred, :after => Date.parse("2018-08-31"), :from =>  from).each do |email|
         if from=="no-reply@parastorage.com"
+          sanitize_redirected_email(email)
+        end
+    end 
+
+    #Redirected from no-reply@crm.wix.com
+    from = "no-reply@crm.wix.com"
+    gmail.mailbox(ENV['gmail_label']).emails(:unstarred, :after => Date.parse("2018-08-31"), :from =>  from).each do |email|
+        if from=="no-reply@crm.wix.com"
           sanitize_redirected_email(email)
         end
     end 
