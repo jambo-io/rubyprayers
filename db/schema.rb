@@ -12,38 +12,38 @@
 
 ActiveRecord::Schema.define(version: 2019_05_22_134824) do
 
-  create_table "categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "categories", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "category_prayers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
-    t.bigint "prayer_id"
-    t.bigint "category_id"
+  create_table "category_prayers", force: :cascade do |t|
+    t.integer "prayer_id"
+    t.integer "category_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["category_id"], name: "index_category_prayers_on_category_id"
     t.index ["prayer_id"], name: "index_category_prayers_on_prayer_id"
   end
 
-  create_table "category_requests", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
-    t.bigint "category_id"
-    t.bigint "request_id"
+  create_table "category_requests", force: :cascade do |t|
+    t.integer "category_id"
+    t.integer "request_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["category_id"], name: "index_category_requests_on_category_id"
     t.index ["request_id"], name: "index_category_requests_on_request_id"
   end
 
-  create_table "prayers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "prayers", force: :cascade do |t|
     t.text "prayer"
     t.string "author"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "reports", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "reports", force: :cascade do |t|
     t.string "name"
     t.datetime "start_at"
     t.datetime "end_at"
@@ -51,16 +51,16 @@ ActiveRecord::Schema.define(version: 2019_05_22_134824) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "request_statuses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "request_statuses", force: :cascade do |t|
     t.boolean "sent", default: false
     t.datetime "sent_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "request_id"
+    t.integer "request_id"
     t.index ["request_id"], name: "index_request_statuses_on_request_id"
   end
 
-  create_table "requests", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "requests", force: :cascade do |t|
     t.string "name"
     t.string "email"
     t.text "request"
@@ -70,7 +70,7 @@ ActiveRecord::Schema.define(version: 2019_05_22_134824) do
     t.datetime "received_at"
   end
 
-  create_table "useres", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "useres", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -82,7 +82,7 @@ ActiveRecord::Schema.define(version: 2019_05_22_134824) do
     t.index ["reset_password_token"], name: "index_useres_on_reset_password_token", unique: true
   end
 
-  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -94,9 +94,4 @@ ActiveRecord::Schema.define(version: 2019_05_22_134824) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "category_prayers", "categories"
-  add_foreign_key "category_prayers", "prayers"
-  add_foreign_key "category_requests", "categories"
-  add_foreign_key "category_requests", "requests"
-  add_foreign_key "request_statuses", "requests"
 end

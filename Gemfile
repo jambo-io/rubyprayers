@@ -5,8 +5,6 @@ ruby '2.6.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.3'
-# Use mysql as the database for Active Record
-gem 'mysql2', '~> 0.4.10'
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
 # Use SCSS for stylesheets
@@ -48,6 +46,7 @@ gem 'gmail', git: 'git://github.com/gmailgem/gmail.git', branch: 'master'
 gem 'sanitize', '~> 4.0', '>= 4.0.1'
 gem 'jquery-rails', '~> 4.3', '>= 4.3.3'
 gem 'rails-ujs', '~> 0.1.0'
+gem 'dotenv-rails', :groups => [:development, :test]
 
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
@@ -56,6 +55,7 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'sqlite3'
 end
 
 group :test do

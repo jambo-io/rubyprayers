@@ -137,9 +137,9 @@ prayers_list_ajuda = [
 
 prayers_list_ajuda.each do |prayer, author|
   if(Prayer.where(:prayer => prayer).blank?)
-    prayer = Prayer.create( prayer: prayer, author: author )
+    prayer = Prayer.create(prayer: prayer, author: author)
     category = prayer.category_prayers.new
-    category.category_id = Category.where(name: "ajuda").first.id
+    category.category_id = Category.where(name: prayers_categories[0]).first.id
     category.save!
   end
 end
@@ -154,7 +154,7 @@ prayers_list_amanhecer.each do |prayer, author|
   if(Prayer.where(:prayer => prayer).blank?)
     prayer = Prayer.create( prayer: prayer, author: author )
     category = prayer.category_prayers.new
-    category.category_id = Category.where(name: "amanhecer").first.id
+    category.category_id = Category.where(name: prayers_categories[1]).first.id
     category.save!
   end
 end
@@ -172,7 +172,7 @@ prayers_list_casamento.each do |prayer, author|
   if(Prayer.where(:prayer => prayer).blank?)
     prayer = Prayer.create( prayer: prayer, author: author )
     category = prayer.category_prayers.new
-    category.category_id = Category.where(name: "casamento").first.id
+    category.category_id = Category.where(name: prayers_categories[3]).first.id
     category.save!
   end
 end
@@ -188,7 +188,7 @@ prayers_list_cura.each do |prayer, author|
   if(Prayer.where(:prayer => prayer).blank?)
     prayer = Prayer.create( prayer: prayer, author: author )
     category = prayer.category_prayers.new
-    category.category_id = Category.where(name: "cura").first.id
+    category.category_id = Category.where(name: prayers_categories[7]).first.id
     category.save!
   end
 end
@@ -203,7 +203,7 @@ prayers_list_desprendimento.each do |prayer, author|
   if(Prayer.where(:prayer => prayer).blank?)
     prayer = Prayer.create( prayer: prayer, author: author )
     category = prayer.category_prayers.new
-    category.category_id = Category.where(name: "desprendimento").first.id
+    category.category_id = Category.where(name: prayers_categories[8]).first.id
     category.save!
   end
 end
@@ -218,7 +218,7 @@ prayers_list_firmeza_e_constancia.each do |prayer, author|
   if(Prayer.where(:prayer => prayer).blank?)
     prayer = Prayer.create( prayer: prayer, author: author )
     category = prayer.category_prayers.new
-    category.category_id = Category.where(name: "firmeza e constância").first.id
+    category.category_id = Category.where(name: prayers_categories[12]).first.id
     category.save!
   end
 end
@@ -235,7 +235,7 @@ prayers_list_protecao.each do |prayer, author|
   if(Prayer.where(:prayer => prayer).blank?)
     prayer = Prayer.create( prayer: prayer, author: author )
     category = prayer.category_prayers.new
-    category.category_id = Category.where(name: "proteção").first.id
+    category.category_id = Category.where(name: prayers_categories[21]).first.id
     category.save!
   end
 end

@@ -10,18 +10,24 @@
 #   https://dev.mysql.com/doc/refman/5.7/en/password-hashing.html
 #
 default: &default
+  adapter: sqlite3
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5000
+
+production:
   adapter: mysql2
   encoding: utf8mb4
   collation: utf8mb4_unicode_ci
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   host: localhost
   username: root
-  password: "537iUv%d*!"
+  password: 537iUv%d*!
   #socket: /var/run/mysqld/mysqld.sock
 
 development:
   <<: *default
-  url: mysql2://b60c699150fc01:c94a1619@us-cdbr-iron-east-02.cleardb.net/heroku_baaf91bf4a35b6e?reconnect=true
+  database: db/development.sqlite3
+  #url: mysql2://b60c699150fc01:c94a1619@us-cdbr-iron-east-02.cleardb.net/heroku_baaf91bf4a35b6e?reconnect=true
   
   
 
@@ -29,7 +35,6 @@ development:
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
-  <<: *default
   database: rubyprayers_test
 
 # As with config/secrets.yml, you never want to store sensitive information,
@@ -52,6 +57,5 @@ test:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
 production:
-  <<: *default
   #database: rubyprayers_development
   url: <%= ENV['DATABASE_URL'] %>
