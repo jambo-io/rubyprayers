@@ -11,13 +11,7 @@
   <% requests = category.requests.joins(:request_status).merge(RequestStatus.where(:created_at => @report.start_at...@report.end_at).sent) %>
     <% unless requests.blank? %>
       <table class="table">
-        <thead>
-          <tr class="text-center">
-            <th scope="col"></th>
-            <th scope="col">Nome</th>
-            <th scope="col">E-mail</th>
-          </tr>
-        </thead>
+       
         <h4 class="text-center m-2 p-3"><%= category.name %> </h4>
         <tbody>
           <% requests.each.with_index do |request, index| %>
