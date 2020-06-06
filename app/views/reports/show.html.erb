@@ -8,7 +8,7 @@
   <%= @count %> <%= "pedido".pluralize(@count) %> de <%=  @report.start_at.strftime("%d/%m/%Y") %> até  <%=  @report.end_at.strftime("%d/%m/%Y") %>
 </p>
 <% @categories.each do |category| %>
-  <% requests = category.requests.joins(:request_status).merge(RequestStatus.where(:received_at => @report.start_at...@report.end_at).sent) %>
+  <% requests = category.requests.joins(:request_status).merge(RequestStatus.where(:created_at => @report.start_at...@report.end_at).sent) %>
     <% unless requests.blank? %>
       <table class="table">
         <thead>
