@@ -43,7 +43,7 @@ gem 'rails_12factor'
 gem 'devise'
 gem 'google-api-client', '~> 0.11.1'
 gem 'gmail', git: 'git://github.com/gmailgem/gmail.git', branch: 'master'
-gem 'sanitize', '~> 4.0', '>= 4.0.1'
+gem 'sanitize', '~> 5.2'
 gem 'jquery-rails', '~> 4.3', '>= 4.3.3'
 gem 'rails-ujs', '~> 0.1.0'
 
