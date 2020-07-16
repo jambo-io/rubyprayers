@@ -1,9 +1,9 @@
 class ReplyRequestMailer < ApplicationMailer
-    after_action :set_sent_true
     after_action :return_true
     before_action :greet
     before_action :default_prayer
     before_action :default_author
+    after_action :set_sent_true
 
     def reply_request(request)
         @request = request
