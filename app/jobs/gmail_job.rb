@@ -29,7 +29,7 @@ class GmailJob < ApplicationJob
     # Eliminate HMTL tags
 
     #Iconv.conv(‘utf-8//IGNORE’,‘utf-8’,"#{0xFF.chr} abcde")
-    body_encoded = Sanitize.clean(body.encode('UTF-8', invalid: :replace, undef: :replace, replace: '?'))
+    body_encoded = Sanitize.clean(body.encode('UTF-8', invalid: :replace, undef: :replace, replace: ''))
     puts "body encoded"
     
     #Change Date based on Foward Message
@@ -95,7 +95,7 @@ class GmailJob < ApplicationJob
     fields = ["Nome", "Email", "Telefone", "Pedido de oração"]
 
     if(body_encoded.include? "Nome:")
-      fields = ["Nome:", "Email:", "Telefone:", "Pedido de oração:"]
+      fields = ["Nome:", "Email:", "Telefone:", "Pedido"]
     end
 
     name = body_encoded.split(fields[0]).last.split(fields[1]).first.strip!
