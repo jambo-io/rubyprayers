@@ -4,21 +4,6 @@ class RequestsController < ApplicationController
   # GET /requests
   # GET /requests.json
 
-  def authorize
-    client_secrets = Google::APIClient::ClientSecrets.load('public/app_credentials.json')
-    auth_client = client_secrets.to_authorization
-    auth_client.update!(
-      :scope => 'https://www.googleapis.com/auth/gmail.readonly',
-      :redirect_uri => 'http://localhost/authorize',
-      :additional_parameters => {
-        "access_type" => "offline",         # offline access
-        "include_granted_scopes" => "true"  # incremental auth
-      }
-    )
-    auth_uri = auth_client.authorization_uri.to_s
-    redirect_to(auth_uri)
-  end
-
   def index
     #@requests = Request.where()
     @requests = Request.joins(:request_status).merge(RequestStatus.unsent).limit(20)
@@ -102,6 +87,38 @@ class RequestsController < ApplicationController
       format.html { redirect_to requests_url, notice: 'Request was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def authorize
+
+  end
+  
+
+  def connect
+    # Connecting to Gmail
+    require "googleauth"
+    require 'google/apis/gmail_v1'
+    require "googleauth/stores/file_token_store"
+
+    scope = Google::Apis::GmailV1::AUTH_GMAIL_READONLY
+    service = Google::Apis::GmailV1::GmailService.new
+    service.client_options.application_name = "rubyprayers"
+
+    service.authorization = Google::Auth::ServiceAccountCredentials.make_creds(
+                        json_key_io: File.open(Rails.root.join("public", "rubyprayers-2117861e1cc2.json")),
+                        scope: scope)
+
+    
+    access_token = service.authorization.fetch_access_token!
+    
+    # Show the user's labels
+    user_id = "me"
+    result = service.list_user_labels user_id
+    puts "Labels:"
+    puts "No labels found" if result.labels.empty?
+    result.labels.each { |label| puts "- #{label.name}" }
+ 
+    
   end
 
   private

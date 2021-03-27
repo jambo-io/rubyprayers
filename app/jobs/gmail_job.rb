@@ -24,9 +24,11 @@ class GmailJob < ApplicationJob
     head_encoded = head.force_encoding('utf-8')
     datetime = head_encoded.split("Date:").last.split("From:").first
     # => Body
-    body = email.html_part.body.decoded
-
+    body = email.html_part.body.decoded.encode("UTF-8", invalid: :replace, replace: "")
+    
     # Eliminate HMTL tags
+
+    #Iconv.conv(‘utf-8//IGNORE’,‘utf-8’,"#{0xFF.chr} abcde")
     body_encoded = Sanitize.clean(body.force_encoding('utf-8'))
     puts "body encoded"
     
@@ -36,7 +38,6 @@ class GmailJob < ApplicationJob
     if(body_encoded.include? "---------- Forwarded message ---------")
       puts "included <<<<<<<<<<"
 
-
       if ((body_encoded.include? "Date:") || (body_encoded.include? "Data:"))
         if (body_encoded.include? "Subject:"  || (body_encoded.include? "Assunto:"))
           body_encoded_date = body_encoded.split("Date:").last.split("Subject:").first.strip!
@@ -45,7 +46,6 @@ class GmailJob < ApplicationJob
           date_day_decoded = /\d+/.match(date_decoded.to_s)
           date_month_decoded = date_decoded[0].split(date_day_decoded.to_s + " de ").last.split(" de 2")
           
-
           date_year_decoded = 2000 + date_month_decoded[1].to_i
           date_month_decoded = date_month_decoded[0].to_s
           
