@@ -46,7 +46,7 @@ gem 'gmail', git: 'git://github.com/gmailgem/gmail.git', branch: 'master'
 gem 'sanitize', '~> 4.0', '>= 4.0.1'
 gem 'jquery-rails', '~> 4.3', '>= 4.3.3'
 gem 'rails-ujs', '~> 0.1.0'
-gem 'sqlite3', '~> 1.3', '>= 1.3.11'
+
 # Sanitize Strings
 gem 'iconv', '~> 1.0', '>= 1.0.4'
 
@@ -57,6 +57,7 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'sqlite3', '~> 1.3', '>= 1.3.11'
   gem 'dotenv-rails'
 end
 
