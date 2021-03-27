@@ -24,12 +24,12 @@ class GmailJob < ApplicationJob
     head_encoded = head.force_encoding('utf-8')
     datetime = head_encoded.split("Date:").last.split("From:").first
     # => Body
-    body = email.html_part.body.decoded.encode("UTF-8", invalid: :replace, replace: "")
+    body = email.html_part.body.decoded
     
     # Eliminate HMTL tags
 
     #Iconv.conv(‘utf-8//IGNORE’,‘utf-8’,"#{0xFF.chr} abcde")
-    body_encoded = Sanitize.clean(body.force_encoding('utf-8'))
+    body_encoded = Sanitize.clean(body.encode('UTF-8', invalid: :replace, undef: :replace, replace: '?'))
     puts "body encoded"
     
     #Change Date based on Foward Message
@@ -107,8 +107,8 @@ class GmailJob < ApplicationJob
     phone = body_encoded.split(fields[2]).last.split(fields[3]).first.strip!
     puts "Phone: #{phone}"
 
-    message = body_encoded.split(fields[3]).last.to_s
-
+    message = body_encoded.split(fields[3]).last.split("Para editar as configura").first.strip!.to_s
+    puts "Messagem: #{message}"
 
     filters = ["Nome do Formulário", "Não perca potenciais clientes.", "Never miss a lead.", "Para editar as configurações de email", "Para editar as configurações do seu email, acesse seu Inbox na versão desktop."]
 
@@ -120,7 +120,7 @@ class GmailJob < ApplicationJob
       end
     end
 
-    
+    return ">> Did not Save >> done"
 
      puts "Message: #{message}"
      request = save_data(name, user_email, phone, message, datetime.to_s)
@@ -135,26 +135,29 @@ class GmailJob < ApplicationJob
     # Do something later
     require 'gmail'
     gmail = Gmail.new(ENV['imap_user'], ENV['imap_password'])
-  
+    puts "1. First part"
     #Fowarded Email
-    from = "oracoesonline@bahai.org.br"
-    gmail.mailbox(ENV['gmail_label']).emails(:unstarred, :after => Date.parse("2018-08-31"), :from =>  from).each do |email|
-        if from=="oracoesonline@bahai.org.br"
-          sanitize_redirected_email(email)
-        end
-    end
+    #from = "oracoesonline@bahai.org.br"
+    #gmail.mailbox(ENV['gmail_label']).emails(:unstarred, :after => Date.parse("2018-08-31"), :from =>  from).each do |email|
+    #    puts "2. Second part 1"
+    #    if from=="oracoesonline@bahai.org.br"
+    #      sanitize_redirected_email(email)
+    #    end
+    #end
     
     #Redirected from Oracoesonline@bahai.rog.br
-    from = "no-reply@parastorage.com"
-    gmail.mailbox(ENV['gmail_label']).emails(:unstarred, :after => Date.parse("2018-08-31"), :from =>  from).each do |email|
-        if from=="no-reply@parastorage.com"
-          sanitize_redirected_email(email)
-        end
-    end 
+    # from = "no-reply@parastorage.com"
+    # gmail.mailbox(ENV['gmail_label']).emails(:unstarred, :after => Date.parse("2018-08-31"), :from =>  from).each do |email|
+    #    puts "2. Second part 2"
+    #    if from=="no-reply@parastorage.com"
+    #      sanitize_redirected_email(email)
+    #    end
+    #end 
 
     #Redirected from no-reply@crm.wix.com
     from = "no-reply@crm.wix.com"
-    gmail.mailbox(ENV['gmail_label']).emails(:unstarred, :after => Date.parse("2018-08-31"), :from =>  from).each do |email|
+    gmail.mailbox(ENV['gmail_label']).emails(:unstarred, :after => Date.parse("2018-08-31")).each do |email|
+        puts "2. Second part 3"
         if from=="no-reply@crm.wix.com"
           sanitize_redirected_email(email)
         end
