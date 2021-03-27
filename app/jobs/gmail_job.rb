@@ -120,7 +120,7 @@ class GmailJob < ApplicationJob
       end
     end
 
-    return ">> Did not Save >> done"
+   
 
      puts "Message: #{message}"
      request = save_data(name, user_email, phone, message, datetime.to_s)
@@ -158,9 +158,7 @@ class GmailJob < ApplicationJob
     from = "no-reply@crm.wix.com"
     gmail.mailbox(ENV['gmail_label']).emails(:unstarred, :after => Date.parse("2018-08-31")).each do |email|
         puts "2. Second part 3"
-        if from=="no-reply@crm.wix.com"
-          sanitize_redirected_email(email)
-        end
+        sanitize_redirected_email(email)
     end 
 
   end
