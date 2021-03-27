@@ -96,6 +96,7 @@ class RequestsController < ApplicationController
 
   def connect
     # Connecting to Gmail
+    =begin
     require "googleauth"
     require 'google/apis/gmail_v1'
     require "googleauth/stores/file_token_store"
@@ -117,7 +118,7 @@ class RequestsController < ApplicationController
     puts "Labels:"
     puts "No labels found" if result.labels.empty?
     result.labels.each { |label| puts "- #{label.name}" }
- 
+    =end
     
   end
 
