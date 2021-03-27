@@ -96,29 +96,23 @@ class RequestsController < ApplicationController
 
   def connect
     # Connecting to Gmail
-    =begin
-    require "googleauth"
-    require 'google/apis/gmail_v1'
-    require "googleauth/stores/file_token_store"
+    #require "googleauth"
+    #require 'google/apis/gmail_v1'
+    #require "googleauth/stores/file_token_store"
+    #scope = Google::Apis::GmailV1::AUTH_GMAIL_READONLY
+    #service = Google::Apis::GmailV1::GmailService.new
+    #service.client_options.application_name = "rubyprayers"
+    #service.authorization = Google::Auth::ServiceAccountCredentials.make_creds(
+                        #json_key_io: File.open(Rails.root.join("public", "rubyprayers-2117861e1cc2.json")),
+                        #scope: scope)
 
-    scope = Google::Apis::GmailV1::AUTH_GMAIL_READONLY
-    service = Google::Apis::GmailV1::GmailService.new
-    service.client_options.application_name = "rubyprayers"
-
-    service.authorization = Google::Auth::ServiceAccountCredentials.make_creds(
-                        json_key_io: File.open(Rails.root.join("public", "rubyprayers-2117861e1cc2.json")),
-                        scope: scope)
-
-    
-    access_token = service.authorization.fetch_access_token!
-    
+    #access_token = service.authorization.fetch_access_token!
     # Show the user's labels
-    user_id = "me"
-    result = service.list_user_labels user_id
-    puts "Labels:"
-    puts "No labels found" if result.labels.empty?
-    result.labels.each { |label| puts "- #{label.name}" }
-    =end
+    # user_id = "me"
+    # result = service.list_user_labels user_id
+    # puts "Labels:"
+    # puts "No labels found" if result.labels.empty?
+    # result.labels.each { |label| puts "- #{label.name}" }
     
   end
 
